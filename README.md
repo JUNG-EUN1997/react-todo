@@ -9,6 +9,9 @@
 ```
 npm install react-hook-form
 ```
+### SELECTOR of atom
+1. atom의 output을 변형시키는 도구
+
 
 [시청강의 : 노마드코더
 (React JS 마스터클래스)](https://nomadcoders.co, "강의페이지로 이동")

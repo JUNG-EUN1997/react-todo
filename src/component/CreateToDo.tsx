@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { IForm, toDoState } from "../atoms";
 
 function CreateToDo() {
@@ -11,7 +11,7 @@ function CreateToDo() {
     const 값을수정Fn = useSetRecoilState(atom명);
       > '값을수정Fn'만 사용하고 싶을 때
   */
-  const [toDos, setToDos] = useRecoilState(toDoState);
+  const setToDos = useSetRecoilState(toDoState);
   const {
     register,
     handleSubmit,
@@ -22,7 +22,6 @@ function CreateToDo() {
   const onValid = ({ toDo }: IForm) => {
     setToDos((oldToDo) => [{ text: toDo, id:Date.now(), category: "TO_DO" }, ...oldToDo]);
     setValue("toDo", "");
-    
   };
   return (
     <>
