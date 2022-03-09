@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { IForm, toDoState } from "../atoms";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { categoryState, IForm, toDoState } from "../atoms";
 
 function CreateToDo() {
   /*
@@ -12,6 +12,8 @@ function CreateToDo() {
       > '값을수정Fn'만 사용하고 싶을 때
   */
   const setToDos = useSetRecoilState(toDoState);
+  const category = useRecoilValue(categoryState)
+  console.log(category)
   const {
     register,
     handleSubmit,
@@ -20,7 +22,7 @@ function CreateToDo() {
   } = useForm<IForm>();
 
   const onValid = ({ toDo }: IForm) => {
-    setToDos((oldToDo) => [{ text: toDo, id:Date.now(), category: "TO_DO" }, ...oldToDo]);
+    setToDos((oldToDo) => [{ text: toDo, id:Date.now(), category }, ...oldToDo]);
     setValue("toDo", "");
   };
   return (
