@@ -75,6 +75,7 @@ function Registration() {
     console.error(data);
   };
   console.log(errors);
+  console.log(watch())
   return (
     <div>
       <form

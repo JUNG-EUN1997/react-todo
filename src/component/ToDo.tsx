@@ -21,12 +21,12 @@ function ToDo({ text, category, id }: IToDo) {
       const newToDo = { text, id, category: name as IToDo['category'] };
       console.log(oldToDo, newToDo);
 
-      // 방법 1 -> 필요한 부분 잘라서 앞뒤로 붙여주기
-      // return [
-      //   ...oldToDos.slice(0, targetIndex),
-      //   newToDo,
-      //   ...oldToDos.slice(targetIndex + 1),
-      // ];
+      /* 방법 1 -> 필요한 부분 잘라서 앞뒤로 붙여주기
+      return [
+        ...oldToDos.slice(0, targetIndex),
+        newToDo,
+        ...oldToDos.slice(targetIndex + 1),
+      ]; */
 
       // 방법 2 -> 새로운 배열 생성 후 거기에서 변경해주기
       const newToDos = [...oldToDos];
