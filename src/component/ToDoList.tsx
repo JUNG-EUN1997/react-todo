@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useForm } from "react-hook-form";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
+  allCategoryState,
   Categories,
   categoryState,
+  ICategoryForm,
   IToDo,
   toDoSelector,
   toDoState,
 } from "../atoms";
-import CreateCategory from "./CreateCategory";
+import Category from "./Category";
 import CreateToDo from "./CreateToDo";
 import ToDo from "./ToDo";
 
@@ -30,10 +33,7 @@ function ToDoList() {
     })();
   });
 
-  const [category, setCategory] = useRecoilState(categoryState);
-  const onInput = (event: React.FormEvent<HTMLSelectElement>) => {
-    setCategory(event.currentTarget.value as any);
-  };
+  
 
   const [value, setValue] = useState();
   const onChange = (event: React.FormEvent<HTMLInputElement>) => {
@@ -47,17 +47,13 @@ function ToDoList() {
     console.log(event);
   };
 
+  const category = useRecoilValue(categoryState)
+
   return (
     <div>
       <h1>To Do List</h1>
       <hr />
-      <CreateCategory />
-      <hr />
-      <select value={category} onInput={onInput}>
-        <option value={Categories.TO_DO}>TO DO</option>
-        <option value={Categories.DOING}>DOING</option>
-        <option value={Categories.DONE}>DONE</option>
-      </select>
+        <Category />
       <hr />
       <CreateToDo />
       <h2>{category}</h2>
