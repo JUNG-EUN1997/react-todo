@@ -1,89 +1,73 @@
-import { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 import ToDoList from "./component/ToDoList";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
-const GlobalStyle = createGlobalStyle`
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap');
-/* http://meyerweb.com/eric/tools/css/reset/ 
-  v2.0 | 20110126
-  License: none (public domain)
-*/
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
-}
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
-	display: block;
-}
-body {
-	line-height: 1;
-}
-ol, ul {
-	list-style: none;
-}
-blockquote, q {
-	quotes: none;
-}
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;
-}
-table {
-	border-collapse: collapse;
-	border-spacing: 0;
-}
-body{
-  font-family: 'Source Sans Pro', sans-serif;
-  background-color: ${(props) => props.theme.bgColor};
-  color: ${(props) => props.theme.textColor};
-}
-a{
-  text-decoration: none;
-	color: inherit;
-}
-*{box-sizing:border-box;}
+const Wrapper = styled.div`
+  display: flex;
+  max-width: 480px;
+  width: 100%;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 `;
+
+const Boards = styled.div`
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(1, 1fr);
+`;
+
+const Board = styled.div`
+  background-color: ${(props) => props.theme.boardColor};
+  padding: 20px 10px;
+  padding-top: 30px;
+  border-radius: 8px;
+  min-height: 100px;
+`;
+
+const Card = styled.div`
+  background-color: ${(props) => props.theme.cardColor};
+  border-radius: 8px;
+  padding: 10px;
+	margin-bottom: 8px;
+`;
+
+const toDos = ["a", "b", "c", "d", "e"];
+console.log(toDos);
 
 function App() {
   const onDragEnd = () => {};
   return (
     <>
       <DragDropContext onDragEnd={onDragEnd}>
-        <div>
-          <Droppable droppableId="one">
-            {(magic) => (
-              <ul ref={magic.innerRef} {...magic.droppableProps}>
-                <Draggable draggableId="first" index={0} >
-                  {(magic) => <li ref={magic.innerRef} {...magic.draggableProps} ><span {...magic.dragHandleProps}>😀</span>Hi1</li>}
-                </Draggable>
-                <Draggable draggableId="second" index={1}>
-                  {(magic) => <li ref={magic.innerRef} {...magic.draggableProps} ><span {...magic.dragHandleProps}>😎</span>Hi2</li>}
-                </Draggable>
-              </ul>
-            )}
-          </Droppable>
-        </div>
+        <Wrapper>
+          <Boards>
+            <Droppable droppableId="one">
+              {(magic) => (
+                <Board ref={magic.innerRef} {...magic.droppableProps} >
+                  {toDos.map((toDo, index) => (
+                    <Draggable draggableId={toDo} index={index}>
+                      {(magic) => (
+                        <Card
+                          ref={magic.innerRef}
+                          {...magic.draggableProps}
+                          {...magic.dragHandleProps}
+                        >
+                          <span>😀</span>
+                          {toDo}
+                        </Card>
+                      )}
+                    </Draggable>
+                  ))}
+									{magic.placeholder}
+                </Board>
+              )}
+            </Droppable>
+          </Boards>
+        </Wrapper>
       </DragDropContext>
-      {/* <GlobalStyle />
+      {/* 
       <ToDoList /> */}
     </>
   );
