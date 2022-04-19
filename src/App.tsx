@@ -1,5 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 import ToDoList from "./component/ToDoList";
+import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap');
@@ -63,10 +64,27 @@ a{
 `;
 
 function App() {
+  const onDragEnd = () => {};
   return (
     <>
-      <GlobalStyle />
-      <ToDoList />
+      <DragDropContext onDragEnd={onDragEnd}>
+        <div>
+          <Droppable droppableId="one">
+            {(magic) => (
+              <ul ref={magic.innerRef} {...magic.droppableProps}>
+                <Draggable draggableId="first" index={0} >
+                  {(magic) => <li ref={magic.innerRef} {...magic.draggableProps} ><span {...magic.dragHandleProps}>😀</span>Hi1</li>}
+                </Draggable>
+                <Draggable draggableId="second" index={1}>
+                  {(magic) => <li ref={magic.innerRef} {...magic.draggableProps} ><span {...magic.dragHandleProps}>😎</span>Hi2</li>}
+                </Draggable>
+              </ul>
+            )}
+          </Droppable>
+        </div>
+      </DragDropContext>
+      {/* <GlobalStyle />
+      <ToDoList /> */}
     </>
   );
 }
