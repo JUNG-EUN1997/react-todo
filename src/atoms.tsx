@@ -1,5 +1,5 @@
 import { atom, selector } from "recoil";
-// atom은 단순히 배열을 전달하고, selector는 atom의 output을 조정할 수 있음
+/* // atom은 단순히 배열을 전달하고, selector는 atom의 output을 조정할 수 있음
 
 // export type categories = "TO_DO" | "DOING" | "DONE";
 
@@ -50,3 +50,9 @@ export const toDoSelector = selector({
     return toDos.filter((todo) => todo.category === category);
   },
 });
+ */
+
+export const toDoState = atom({
+  key : "toDo",
+  default : ["a", "b", "c", "d", "e"]
+})
