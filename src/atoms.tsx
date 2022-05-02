@@ -52,7 +52,15 @@ export const toDoSelector = selector({
 });
  */
 
-export const toDoState = atom({
-  key : "toDo",
-  default : ["a", "b", "c", "d", "e"]
-})
+interface IToDoState {
+  [key: string]: string[];
+}
+
+export const toDoState = atom<IToDoState>({
+  key: "toDo",
+  default: {
+    "To Do": ["a", "b", "c", "d", "e", "f"],
+    Doing: ["x"],
+    Done: ["z"],
+  },
+});
