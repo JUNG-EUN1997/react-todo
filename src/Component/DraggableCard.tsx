@@ -15,14 +15,15 @@ const Card = styled.div<ICardProps>`
 `;
 
 interface IDraggableCardProps {
-  toDo: string;
+  toDoId: number;
+  toDoText : string
   index: number;
 }
 
-function DraggableCard({ toDo, index }: IDraggableCardProps) {
+function DraggableCard({ toDoId, index, toDoText }: IDraggableCardProps) {
   // 부모 state가 바뀌면, 전체가 다시 render됨
   return (
-    <Draggable draggableId={toDo} index={index} key={toDo}>
+    <Draggable draggableId={toDoId+""} index={index} key={toDoId}>
       {/* key & draggableId must same! */}
       {(magic, snapshot) => (
         <Card
@@ -32,7 +33,7 @@ function DraggableCard({ toDo, index }: IDraggableCardProps) {
           isDragging={snapshot.isDragging}
         >
           <span></span>
-          {toDo}
+          {toDoText}
         </Card>
       )}
     </Draggable>

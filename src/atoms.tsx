@@ -52,15 +52,23 @@ export const toDoSelector = selector({
 });
  */
 
+export interface ITodo {
+  id: number;
+  text: string;
+}
+
 interface IToDoState {
-  [key: string]: string[];
+  [key: string]: ITodo[];
 }
 
 export const toDoState = atom<IToDoState>({
   key: "toDo",
   default: {
-    "To Do": ["a", "b", "c", "d", "e", "f"],
-    Doing: ["x"],
-    Done: ["z"],
+    "To Do": [
+      { id: 1, text: "hi" },
+      { id: 2, text: "gg" },
+    ],
+    Doing: [],
+    Done: [],
   },
 });
